@@ -58,7 +58,7 @@ public class awardsController {
 				award.setImage(imageData);
 			} catch (Exception e) {
 				logger.error("Error uploading image: " + e.getMessage());
-				// Handle the error, redirect to an error page, or show an error message
+				// Handle the error, redirect to an error page, or show an error message shgvssssssss
 			}
 		}
 
