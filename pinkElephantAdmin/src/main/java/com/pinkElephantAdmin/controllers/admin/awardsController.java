@@ -1,11 +1,14 @@
 package com.pinkElephantAdmin.controllers.admin;
 
-import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,15 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.pinkElephantAdmin.daos.DivisionsDAO;
 import com.pinkElephantAdmin.daos.AwardsDAO;
-import com.pinkElephantAdmin.model.Divisions;
+import com.pinkElephantAdmin.daos.DivisionsDAO;
 import com.pinkElephantAdmin.model.Awards;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import com.pinkElephantAdmin.model.Divisions;
 
 @Controller
 public class awardsController {
@@ -58,7 +56,7 @@ public class awardsController {
 				award.setImage(imageData);
 			} catch (Exception e) {
 				logger.error("Error uploading image: " + e.getMessage());
-				// Handle the error, redirect to an error page, or show an error message shgvssssssss
+				// Handle the error, redirect to an error page, or show an error message
 			}
 		}
 
