@@ -5,15 +5,17 @@
 <head>
     <title>Add Social Media</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     <script
+	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/toaster.css">
 
     <!-- Custom Styles -->
     <style>
         body {
-            background-image: url('./images/addDiv.jpg');
+           /*  background-image: url('./images/addDiv.jpg');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
+            background-repeat: no-repeat; */
             height: 100vh;
             margin: 0;
             display: flex;
@@ -33,17 +35,54 @@
             font-weight: bold;
         }
     </style>
-    <script>
-        function clear() {
+    <script type="text/javascript">
+  $(document).ready(function () {
+        $("#createNewSocialMedia").submit(function (event) {
+            // Prevent the default form submission
+            event.preventDefault();
+
+            // Get form data
+            var formData = $(this).serialize();
+
+            // Make an AJAX call
+            $.ajax({
+                type: "POST",
+                url: "createNewSocialMedia",
+                data: formData,
+                success: function (response) {
+                    // Handle the success response
+                    console.log(response);
+
+                    // Display a toastr success notification
+                    toastr.success('Social Media created successfully!', 'Success', {
+                        closeButton: true,  // Optional: Show close button
+                    });
+
+                    // Clear the form
+                    clearForm();
+                },
+                error: function (error) {
+                    // Handle the error response
+                    console.log(error);
+
+                    // Display a toastr error notification
+                    toastr.error('Failed to create Social Media.', 'Error', {
+                        closeButton: true,  // Optional: Show close button
+                    });
+                }
+            });
+        });
+
+        function clearForm() {
             document.getElementById("createNewSocialMedia").reset();
         }
 
         $(document).on('click', '#clr', function (event) {
             event.preventDefault();
-            clear();
+            clearForm();
         });
-    </script>
-</head>
+    });
+</script></head>
 <body>
 <form action="createNewSocialMedia" id="createNewSocialMedia" method="post">
     <div class="container">

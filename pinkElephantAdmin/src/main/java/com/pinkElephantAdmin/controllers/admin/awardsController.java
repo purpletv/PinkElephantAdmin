@@ -42,6 +42,7 @@ public class awardsController {
 	}
 
 	@RequestMapping(value = "/createNewAwardElephant", method = RequestMethod.POST)
+	@ResponseBody
 	public String createAwardNew(@RequestParam("description") String description,
 			@RequestParam("title") String awardTitle, @RequestParam("image") MultipartFile file, Model model) {
 		Awards award = new Awards();
@@ -66,7 +67,7 @@ public class awardsController {
 		award = new Awards();
 		model.addAttribute("award", award);
 
-		return "addedDivision";
+		return "addedAward";
 
 	}
 

@@ -1,11 +1,14 @@
 package com.pinkElephantAdmin.controllers.admin;
 
-import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,17 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pinkElephantAdmin.daos.TeamsDAO;
-import com.pinkElephantAdmin.daos.DivisionsDAO;
-import com.pinkElephantAdmin.daos.TeamsDAO;
 import com.pinkElephantAdmin.model.Teams;
-import com.pinkElephantAdmin.model.Awards;
-import com.pinkElephantAdmin.model.Divisions;
-import com.pinkElephantAdmin.model.Teams;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 
 @Controller
 public class teamsController {
@@ -44,6 +37,7 @@ public class teamsController {
 	}
 
 	@RequestMapping(value = "/createNewTeam", method = RequestMethod.POST)
+	@ResponseBody
 	public String createTeamNew(@RequestParam("designation") String designation,
 			@RequestParam("title") String title, @RequestParam("image") MultipartFile file, Model model) {
 
@@ -65,7 +59,7 @@ public class teamsController {
 		
 		teamDAO.addNewTeam(team);
 
-		return "addedDivision";
+		return "addedTeam";
 
 	}
 

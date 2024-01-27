@@ -5,7 +5,11 @@
 <head>
     <title>Add Film</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script
+	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/toaster.css">
+    
+    
 
     <!-- Custom Styles -->
     <style>
@@ -34,28 +38,65 @@
         }
     </style>
     <script>
-        $(document).ready(function () {
-            // Add change event listener to the dropdown
-            $('#dropdownField').change(function () {
-                // Get the selected value from the dropdown
-                var selectedValue = $(this).val();
-                // Set the value of the hidden input field
-                $('#div_Id').val(selectedValue);
-            });
+    $(document).ready(function () {
+        $("#createNewFilm").submit(function (event) {
+            // Prevent the default form submission
+            event.preventDefault();
 
-            // Clear form function
-            function clearForm() {
-                document.getElementById("createNewFilm").reset();
-                // Also reset the hidden input field value
-                $('#div_Id').val('');
-            }
+            // Get form data
+            var formData = new FormData(this);
 
-            // Clear button click event
-            $('#clr').click(function (event) {
-                event.preventDefault();
-                clearForm();
+            // Make an AJAX call
+            $.ajax({
+                type: "POST",
+                url: "createNewFilmElephant",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    // Handle the success response
+                    console.log(response);
+
+                    // Display a toastr success notification
+                 toastr.success('Film added successfully!', 'Success', {
+                       
+                        closeButton: true,  // Optional: Show close button
+                    });
+
+                    // Clear the form
+                    clearForm();
+                },
+                error: function (error) {
+                    // Handle the error response
+                    console.log(error);
+
+                    // Display a toastr error notification
+                    toastr.error('Failed to add film.', 'Error', {
+                       
+                        closeButton: true,  // Optional: Show close button
+                    });
+                }
             });
         });
+
+        // Add change event listener to the dropdown
+        $('#dropdownField').change(function () {
+            var selectedValue = $(this).val();
+            $('#div_Id').val(selectedValue);
+        });
+
+        // Clear form function
+        function clearForm() {
+            document.getElementById("createNewFilm").reset();
+            $('#div_Id').val('');
+        }
+
+        // Clear button click event
+        $('#clr').click(function (event) {
+            event.preventDefault();
+            clearForm();
+        });
+    });
     </script>
 </head>
 <body>

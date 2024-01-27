@@ -5,7 +5,8 @@
 <head>
     <title>Add Team</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="path/to/toastr.css">
 
     <!-- Custom Styles -->
     <style>
@@ -35,12 +36,47 @@
     </style>
     <script>
         $(document).ready(function () {
-            
+            $("#createNewTeam").submit(function (event) {
+                // Prevent the default form submission
+                event.preventDefault();
+
+                // Get form data using FormData
+                var formData = new FormData(this);
+
+                // Make an AJAX call
+                $.ajax({
+                    type: "POST",
+                    url: "createNewTeam",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        // Handle the success response
+                        console.log(response);
+
+                        // Display a toastr success notification
+                        toastr.success('Team created successfully!', 'Success', {
+                            closeButton: true,
+                        });
+
+                        // Clear the form
+                        clearForm();
+                    },
+                    error: function (error) {
+                        // Handle the error response
+                        console.log(error);
+
+                        // Display a toastr error notification
+                        toastr.error('Failed to create Team.', 'Error', {
+                            closeButton: true,
+                        });
+                    }
+                });
+            });
 
             // Clear form function
             function clearForm() {
                 document.getElementById("createNewTeam").reset();
-               
             }
 
             // Clear button click event
@@ -70,7 +106,6 @@
             <textarea class="form-control" id="designation" name="designation" rows="5" maxlength="200" required></textarea>          
         </div>
   
-
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Create</button>
         </div>

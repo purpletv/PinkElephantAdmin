@@ -1,13 +1,16 @@
 package com.pinkElephantAdmin.controllers.admin;
 
-import java.io.IOException;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,12 +25,6 @@ import com.pinkElephantAdmin.daos.DivisionsDAO;
 import com.pinkElephantAdmin.daos.FilmsDAO;
 import com.pinkElephantAdmin.model.Divisions;
 import com.pinkElephantAdmin.model.Films;
-import com.pinkElephantAdmin.model.Teams;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 
 
 @Controller
@@ -50,6 +47,7 @@ public class filmsController {
 	}
 	
 	@RequestMapping(value = "/createNewFilmElephant", method = RequestMethod.POST)
+	@ResponseBody
 	public String createFilmNew(@RequestParam("url") String url,@RequestParam("description") String description,@RequestParam("director") String director,@RequestParam("filmName") String filmName,@RequestParam("div_Id") String id,@RequestParam("poster") MultipartFile file, Model model) {
 		Films film = new Films();
 		long ids= Long.parseLong("4");
@@ -78,7 +76,7 @@ public class filmsController {
 	        film = new Films();
 	        model.addAttribute("film", film);
 
-	        return "addedDivision";
+		return "addedFilm";
 
 	}
 	

@@ -1,0 +1,17 @@
+ .toast-success {
+        background-color: green;
+        
+    }
+
+    .toast-success-icon::before {
+        color: green;
+    }
+
+    /* Custom styles for error toast */
+    .toast-error {
+        background-color: red;
+    }
+
+    .toast-error-icon::before {
+        color: red;
+    }
